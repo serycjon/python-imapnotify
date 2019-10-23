@@ -131,7 +131,10 @@ class Notifier:
     self.boxes[box]['idle'] = asyncio.ensure_future(imap_client.idle())
 
   def _is_new_msg(self, msg):
-    # msg is list of messages
+    if 'EXISTS' in msg:
+      return True
+
+    # if msg is list of messages
     for x in msg:
       if 'EXISTS' in x:
         return True
